@@ -10,18 +10,25 @@ class CounterGroup extends React.Component {
         }
     }
 
-    showCounter = (e) => {
-        this.setState({
-            counterAmount: parseInt(e.target.value)
-        })
+    showCounter = (input) => {
+        let value = parseInt(input.target.value);
+        if (Number.isNaN(value)) {
+            this.setState({
+                counterAmount: 0
+            })
+        } else {
+            this.setState({
+                counterAmount: parseInt(input.target.value)
+            })
+        }
+
     }
 
 
     render() {
         return (
             <div>
-
-                <span>counter amount:      </span><input type="text" onChange={this.showCounter.bind(this)}></input>
+                <span>counter amount:      </span><input type="text" defaultValue={this.state.counterAmount} onChange={this.showCounter.bind(this)}></input>
                 {
                     new Array(this.state.counterAmount).fill(0).map((value, index) => {
                         return (
