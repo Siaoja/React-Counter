@@ -6,7 +6,8 @@ class CounterGroup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            counterAmount: 0
+            counterAmount: 0,
+            total: 0
         }
     }
 
@@ -14,7 +15,8 @@ class CounterGroup extends React.Component {
         let value = parseInt(input.target.value);
         if (Number.isNaN(value)) {
             this.setState({
-                counterAmount: 0
+                counterAmount: 0,
+                total: 0
             })
         } else {
             this.setState({
@@ -24,15 +26,30 @@ class CounterGroup extends React.Component {
 
     }
 
+    increaseTotal = () => {
+        this.setState((prevState) => {
+            return{
+                total: prevState.total + 1
+            }
+        })
+    }
+    descTotal = () => {
+        this.setState((prevState) => {
+            return{
+                total: prevState.total - 1
+            }
+        })
+    }
 
     render() {
         return (
             <div>
-                <span>counter amount:      </span><input type="text" defaultValue={this.state.counterAmount} onChange={this.showCounter.bind(this)}></input>
+                <p><span>counter amount:      </span><input type="text" defaultValue={this.state.counterAmount} onChange={this.showCounter.bind(this)}></input></p>
+                <p><span>total amount:      </span><span defaultValue="0">{this.state.total}</span></p>
                 {
                     new Array(this.state.counterAmount).fill(0).map((value, index) => {
                         return (
-                            <Counter key={index} />
+                            <Counter increaseTotal={this.increaseTotal} descTotal={this.descTotal} key={index} />
                         )
                     })
                 }

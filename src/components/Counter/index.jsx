@@ -10,6 +10,7 @@ class Counter extends React.Component {
     }
 
     increase = () => {
+        this.props.increaseTotal();
         this.setState((prevState) => {
             return {
                 count: prevState.count + 1,
@@ -18,6 +19,7 @@ class Counter extends React.Component {
     }
 
     reduce = () => {
+        this.props.descTotal();
         this.setState((prevState) => {
             return {
                 count: prevState.count - 1,
