@@ -36,6 +36,16 @@ class Counter extends React.Component {
             </div>
         );
     }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.counterAmount != nextProps.counterAmount) {
+            this.setState({
+                count: 0
+            })
+        }
+
+    }
+
     componentWillMount = () => {
         console.log("component will mount")
     }
