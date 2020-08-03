@@ -1,32 +1,31 @@
 import React from 'react';
 
-class Counter extends React.Component{
+class Counter extends React.Component {
 
-    constructor(props){
-        console.log("构造函数")
+    constructor(props) {
         super(props);
         this.state = {
-            count:0,
+            count: 0,
         }
     }
 
-    increase = () =>{
+    increase = () => {
         this.setState((prevState) => {
-            return{
-                count:prevState.count+1,
+            return {
+                count: prevState.count + 1,
             }
         })
     }
 
-    reduce = () =>{
+    reduce = () => {
         this.setState((prevState) => {
-            return{
-                count:prevState.count-1,
+            return {
+                count: prevState.count - 1,
             }
         })
     }
 
-    render(){
+    render() {
         return (
             <div className='main'>
                 <button onClick={this.increase}>+</button>
@@ -35,13 +34,13 @@ class Counter extends React.Component{
             </div>
         );
     }
-    componentWillMount = () =>{
+    componentWillMount = () => {
         console.log("component will mount")
     }
-    componentDidMount = () =>{
+    componentDidMount = () => {
         console.log("component did mount")
     }
-    componentWillUnmount = () =>{
+    componentWillUnmount = () => {
         console.log("component will unmount")
     }
 }
