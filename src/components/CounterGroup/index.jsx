@@ -1,14 +1,17 @@
 import React from 'react';
 import Counter from '../Counter/index';
+import store from '../../store';
 
 class CounterGroup extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            counterAmount: 0,
-            total: 0
-        }
+        this.state = store.getState();
+        // this.state = {
+        //     counterAmount: 0,
+        //     total: 0
+        // }
+        store.subscribe(this.listenchangeTotal)
     }
 
     showCounter = (input) => {
@@ -23,27 +26,34 @@ class CounterGroup extends React.Component {
                 counterAmount: parseInt(input.target.value)
             })
         }
-
+        
+        const action = {
+            type: 'change_counter_amount',
+            data: value
+        }
+        
+        store.dispatch(action)
     }
 
-    increaseTotal = () => {
-        this.setState((prevState) => {
-            return{
-                total: prevState.total + 1
-            }
-        })
-    }
-    descTotal = () => {
-        this.setState((prevState) => {
-            return{
-                total: prevState.total - 1
-            }
-        })
-    }
     resetTotal = () => {
         this.setState({
                 total: 0
         })
+    }
+
+    listenchangeTotal = () => {
+        console.log(store.getState().total)
+        //TODO why say can't call setState on a component that is not yet mounted
+        this.setState(store.getState())
+        // this.setState({
+        //     total: store.getState().total
+        // })
+    }
+    
+
+    handleCounterAmountChange(){
+        //监听函数
+
     }
 
     render() {
@@ -54,7 +64,7 @@ class CounterGroup extends React.Component {
                 {
                     new Array(this.state.counterAmount).fill(0).map((value, index) => {
                         return (
-                            <Counter resetTotal={this.resetTotal} counterAmount={this.state.counterAmount} increaseTotal={this.increaseTotal} descTotal={this.descTotal} key={index} />
+                            <Counter key={index} />
                         )
                     })
                 }
