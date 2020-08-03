@@ -40,6 +40,11 @@ class CounterGroup extends React.Component {
             }
         })
     }
+    resetTotal = () => {
+        this.setState({
+                total: 0
+        })
+    }
 
     render() {
         return (
@@ -49,7 +54,7 @@ class CounterGroup extends React.Component {
                 {
                     new Array(this.state.counterAmount).fill(0).map((value, index) => {
                         return (
-                            <Counter counterAmount={this.state.counterAmount} increaseTotal={this.increaseTotal} descTotal={this.descTotal} key={index} />
+                            <Counter resetTotal={this.resetTotal} counterAmount={this.state.counterAmount} increaseTotal={this.increaseTotal} descTotal={this.descTotal} key={index} />
                         )
                     })
                 }
