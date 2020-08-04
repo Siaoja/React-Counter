@@ -1,5 +1,5 @@
 import React from 'react';
-import store from '../../store/index'
+import { INCREASE_TOTAL, DESC_TOTAL } from '../../actions/updateTotal';
 class Counter extends React.Component {
 
     constructor(props) {
@@ -7,38 +7,37 @@ class Counter extends React.Component {
         this.state = {
             count: 0,
         }
-        store.subscribe(this.listenchangeCounterAmount)
     }
 
     increase = () => {
+        this.props.updateTotal(INCREASE_TOTAL);
         this.setState((prevState) => {
             return {
                 count: prevState.count + 1,
             }
         })
-        
-        const action = {
-            type: 'add_total',
-            data: 1
-        }
-        
-        store.dispatch(action)
     }
 
     reduce = () => {
+        this.props.updateTotal(DESC_TOTAL);
         this.setState((prevState) => {
             return {
                 count: prevState.count - 1,
             }
         })
         
-        // console.log("front or end")
-        const action = {
-            type: 'desc_total',
-            data: 1
+    }
+
+    componentDidUpdate(prevProps, nextState){
+        console.log(this.props)
+        console.log(prevProps)
+        if(this.props.amount !== prevProps.amount){
+            this.setState((nextState) => {
+                return{
+                    count: 0
+                }
+            })
         }
-        
-        store.dispatch(action)
     }
 
     render() {
@@ -49,32 +48,6 @@ class Counter extends React.Component {
                 <button onClick={this.reduce}>-</button>
             </div>
         );
-    }
-
-    listenchangeCounterAmount = () => {
-        this.setState({
-            count: 0
-        })
-    }
-
-    // componentWillReceiveProps = (nextProps) => {
-    //     if (this.props.counterAmount != nextProps.counterAmount) {
-    //         this.setState({
-    //             count: 0
-    //         })
-    //         this.props.resetTotal()
-    //     }
-
-    // }
-
-    componentWillMount = () => {
-        console.log("component will mount")
-    }
-    componentDidMount = () => {
-        console.log("component did mount")
-    }
-    componentWillUnmount = () => {
-        console.log("component will unmount")
     }
 }
 

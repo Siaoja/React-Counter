@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
-import Counter from './components/Counter/index';
-import CounterGroup from './components/CounterGroup';
+import CounterGroupContainer from './containers/CounterGroupContainer';
 
 class App extends Component{
   render(){
   return (
     <div className="App">
-      <CounterGroup></CounterGroup>
+      <CounterGroupContainer></CounterGroupContainer>
     </div>
   );
 }
